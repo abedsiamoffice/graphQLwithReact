@@ -99,6 +99,7 @@ app.use('/graphql', graphHttp({
             });
             
         },
+        
         createUser: (args)=> {
             User.findOne({email: args.userInput.email})
                 .then( user => {
