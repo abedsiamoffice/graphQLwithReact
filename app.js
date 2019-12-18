@@ -38,7 +38,6 @@ app.use('/graphql', graphHttp({
             date: String!
         }
         input UserInput{
-            _id: ID!
             email: String!
             password: String!
         }
@@ -99,7 +98,7 @@ app.use('/graphql', graphHttp({
             });
             
         },
-        
+
         createUser: (args)=> {
             User.findOne({email: args.userInput.email})
                 .then( user => {
@@ -116,7 +115,7 @@ app.use('/graphql', graphHttp({
                     return user.save();
                 })
                 .then(result => {
-                    return {...result._doc,password: null, _id: result.id};
+                    return {...result._doc,password: null};
                 })
                 .catch(err => {
                     throw err;
@@ -126,9 +125,8 @@ app.use('/graphql', graphHttp({
     },
     graphiql: true
 }));
-
-mongoose.connect(`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@multisiam-pugea.mongodb.net/${process.env.MONGO_DB}`, 
-{useNewUrlParser:  true, useUnifiedTopology: true})
+const URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@multisiam-pugea.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority'`;
+mongoose.connect(URI, {useNewUrlParser:  true, useUnifiedTopology: true})
 .then(()=> {
     app.listen(4200, console.log("server running 4200"));
 }).catch(err => {
