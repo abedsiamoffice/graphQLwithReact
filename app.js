@@ -10,12 +10,12 @@ const graphqlSchema = require('./graphql/schema/index');
 const graphqlResolvers = require('./graphql/resolvers/index');
 const isAuth = require('./middleware/is-auth');
 
-/*Adds the react production build to serve react requests*/
-app.use(express.static(path.join(__dirname, "./frontend/public")));
-/*React root*/
-app.get("*", (req, res) => {
-res.sendFile(path.join(__dirname + ""));
-});
+// /*Adds the react production build to serve react requests*/
+// app.use(express.static(path.join(__dirname, "./frontend/public")));
+// /*React root*/
+// app.get("*", (req, res) => {
+// res.sendFile(path.join(__dirname + ""));
+// });
 
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
