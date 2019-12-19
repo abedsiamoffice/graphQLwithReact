@@ -36,10 +36,11 @@ app.use('/graphql', graphHttp({
     rootValue: graphqlResolvers,
     graphiql: true
 }));
+const port = process.env.PORT || 5000;
 const URI = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@multisiam-pugea.mongodb.net/${process.env.MONGO_DB}?retryWrites=true&w=majority`;
 mongoose.connect(URI, {useNewUrlParser:  true, useUnifiedTopology: true})
 .then(()=> {
-    app.listen(8000, console.log("server running 8000"));
+    app.listen(port, console.log("server running 8000"));
 }).catch(err => {
     console.log(err);
 })
